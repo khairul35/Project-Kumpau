@@ -61,7 +61,7 @@ const Component = ({ ports }: ComponentProps) => {
                                         {
                                             port.target.map(e => {
                                                 return (
-                                                    <span>
+                                                    <span key={e}>
                                                         <Tag color="blue">{e}</Tag>
                                                     </span>
                                                 );
@@ -74,7 +74,7 @@ const Component = ({ ports }: ComponentProps) => {
                                         {
                                             port.bait.map(e => {
                                                 return (
-                                                    <span>
+                                                    <span key={e}>
                                                         <Tag color="blue">{e}</Tag>
                                                     </span>
                                                 )
@@ -87,7 +87,7 @@ const Component = ({ ports }: ComponentProps) => {
                                         {
                                             port.technique.map(e => {
                                                 return (
-                                                    <span>
+                                                    <span key={e}>
                                                         <Tag color="blue">{e}</Tag>
                                                     </span>
                                                 )
