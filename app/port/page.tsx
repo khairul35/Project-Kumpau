@@ -1,6 +1,15 @@
+'use client';
+
+import { useEffect } from "react";
 import Component from "./component";
+import axios from 'axios';
 
 const Port = () => {
+
+    const findAllPorts = async () => {
+        const response = await axios.get('/api/port');
+        console.log(response);
+    };
 
     const ports = [
         {
@@ -86,6 +95,10 @@ const Port = () => {
             technique: ['Jigging', 'Bottom', 'Apollo'],
         },
     ];
+
+    useEffect(() => {
+        findAllPorts();
+    }, []);
 
     return (
         <Component ports={ports}/>
