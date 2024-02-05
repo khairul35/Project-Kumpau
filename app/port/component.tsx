@@ -3,7 +3,10 @@ import Search from "antd/es/input/Search";
 import { ComponentProps } from "./props";
 import style from "./index.module.css";
 
-const Component = ({ ports }: ComponentProps) => {
+const Component = ({
+    ports,
+    onCreatePort,
+}: ComponentProps) => {
     return (
         <>
             <Row gutter={16}>
@@ -23,8 +26,8 @@ const Component = ({ ports }: ComponentProps) => {
             <Divider />
             <Row gutter={16}>
                 <Col span={24} className="text-right">
-                    <Button type="primary">
-                        + Add new port
+                    <Button type="primary" onClick={onCreatePort}>
+                        + Kongsi Port
                     </Button>
                 </Col>
             </Row>
@@ -99,7 +102,6 @@ const Component = ({ ports }: ComponentProps) => {
                         );
                     })
                 }
-                
             </Row>
         </>
     );

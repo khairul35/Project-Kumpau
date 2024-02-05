@@ -14,15 +14,15 @@ export default function NavMenu() {
             style={{ flex: 1, minWidth: 0 }}
         >
             {
-                MenuItems.map((e: { key: string, label: string }) => {
+                MenuItems.map((e: { key: string, label: string }, index: number) => {
                     return (
-                        <MenuItem
-                            key={e.key}
+                        <Menu.Item
+                            key={e.key || index}
                         >
                             <Link href={e.key}>
                                 {e.label}
                             </Link>
-                        </MenuItem>
+                        </Menu.Item>
                     );
                 })
             }

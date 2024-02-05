@@ -1,14 +1,24 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Component from "./component";
 import axios from 'axios';
+import PortForm from "./form/page";
 
 const Port = () => {
+    const [showForm, setShowForm] = useState<boolean>(false);
 
     const findAllPorts = async () => {
         const response = await axios.get('/api/port');
         console.log(response);
+    };
+
+    const onCreatePort = () => {
+        setShowForm(true);
+    };
+
+    const onCancelForm = () => {
+        setShowForm(false);
     };
 
     const ports = [
@@ -101,7 +111,16 @@ const Port = () => {
     }, []);
 
     return (
-        <Component ports={ports}/>
+        <>
+            <Component
+                ports={ports}
+                onCreatePort={onCreatePort}
+            />
+            <PortForm
+                onCancelForm={onCancelForm}
+                showForm={showForm}
+            />
+        </>
     );
 };
 

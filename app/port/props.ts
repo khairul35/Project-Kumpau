@@ -12,4 +12,5 @@ export interface Port {
 
 export interface ComponentProps {
     ports: Port[];
+    onCreatePort: () => void;
 }
