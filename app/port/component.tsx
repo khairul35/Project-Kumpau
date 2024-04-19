@@ -1,10 +1,18 @@
-import { Button, Card, Col, Divider, Row, Select, Tag } from "antd"
+import { Button, Card, Col, Divider, Row, Select, Skeleton, Tag } from "antd"
 import Search from "antd/es/input/Search";
 import { ComponentProps } from "./props";
+import { States } from "@/app/constant/states";
 import style from "./index.module.css";
+import { LoadingOutlined, ReloadOutlined } from "@ant-design/icons";
 
 const Component = ({
     ports,
+    loading,
+    search,
+    state,
+    setSearch,
+    setState,
+    onRefresh,
     onCreatePort,
 }: ComponentProps) => {
     return (
@@ -15,23 +23,40 @@ const Component = ({
                     <p>Kenali spot memancing menarik di kawasan anda</p>
                 </Col>
                 <Col lg={8} md={6} sm={24} className="text-right">
-                    <Search placeholder="Cari.." />
+                    <Search placeholder="Cari.." value={search} onChange={(e) => setSearch(e.target.value)} />
                 </Col>
                 <Col lg={4} md={6} sm={24} className="text-right">
-                    <Select placeholder="Kawasan" style={{width: '150px'}}>
-
+                    <Select placeholder="Kawasan" style={{width: '150px'}} value={state == '' ? undefined : state} onChange={(e) => setState(e)}>
+                        {
+                            States.map((e) => {
+                                return (
+                                    <Select.Option key={e?.id} value={e?.name}>
+                                        {e?.name}
+                                    </Select.Option>
+                                );
+                            })
+                        }
                     </Select>
                 </Col>
             </Row>
             <Divider />
             <Row gutter={16}>
                 <Col span={24} className="text-right">
+                    {loading ?
+                        <LoadingOutlined style={{ fontSize: '20px', paddingRight: '20px' }} />
+                        :
+                        <a onClick={onRefresh}>
+                            <ReloadOutlined style={{ fontSize: '20px', paddingRight: '20px' }} />
+                        </a>
+                    }
+                    {' '}
                     <Button type="primary" onClick={onCreatePort}>
                         + Kongsi Port
                     </Button>
                 </Col>
             </Row>
             <Row gutter={16}>
+                <Skeleton loading={loading} active />
                 {
                     ports.map(port => {
                         return (

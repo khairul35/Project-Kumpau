@@ -12,5 +12,11 @@ export interface Port {
 
 export interface ComponentProps {
     ports: Port[];
+    loading: boolean;
+    search: string;
+    state: string;
+    setSearch: (search: string) => void;
+    setState: (state: string) => void;
     onCreatePort: () => void;
+    onRefresh: () => void;
 }

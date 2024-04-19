@@ -5,6 +5,7 @@ import "./globals.css";
 import { Header, Content } from "antd/es/layout/layout";
 import NavMenu from "./layout/Menu";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import styles from "./layout.module.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,17 +34,12 @@ export default function RootLayout({
                 alignItems: 'center',
               }}
             >
-              <div
-                style={{color: '#fff', fontWeight: 'bold', marginRight: '50px' }}
-              >
-                PROJECT KUMPAU
-              </div>
               <NavMenu />
             </Header>
             <Content>
               <div
+                className={styles.content}
                 style={{
-                  padding: '24px 48px',
                   minHeight: 'calc(100vh - 64px)',
                   background: '#D4E4FE'
                 }}

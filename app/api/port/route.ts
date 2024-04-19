@@ -6,10 +6,23 @@ import { CreatePortRequest } from "./props";
 
 
 export async function GET() {
-    const ports = await db.select().from(PortTable)
-        .leftJoin(PortTargetTable, eq(PortTable.id, PortTargetTable.portId))
-        .leftJoin(PortBaitTable, eq(PortTable.id, PortBaitTable.portId))
-        .leftJoin(PortTechniqueTable, eq(PortTable.id, PortTechniqueTable.portId));
+    const ports: any[] = await db.select().from(PortTable);
+    const baits = await db.select().from(PortBaitTable);
+    const targets = await db.select().from(PortTargetTable);
+    const techniques = await db.select().from(PortTechniqueTable);
+    for (const port of ports) {
+        port.bait = baits
+            .filter((bait) => bait.portId === port.id)
+            .map((bait) => bait.bait);
+
+        port.target = targets
+            .filter((target) => target.portId === port.id)
+            .map((target) => target.target);
+
+        port.technique = techniques
+            .filter((technique) => technique.portId === port.id)
+            .map((technique) => technique.technique);
+    }
     return NextResponse.json(ports, { status: 200 });
 };
 
@@ -48,4 +61,8 @@ export async function POST(req: NextRequest) {
             technique: e,
         };
     }));
+
+    return NextResponse.json('Successfully created port', { status: 200 });
 };
+
+

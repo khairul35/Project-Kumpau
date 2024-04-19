@@ -35,3 +35,31 @@ export const PortTechniqueTable = pgTable("PortTechniques", {
     technique: varchar('technique').notNull(),
     portId: integer('port_id').notNull().references(() => PortTable.id),
 });
+
+export const UsersTable = pgTable("Users", {
+    id: serial('id').primaryKey().notNull(),
+    name: varchar('name').notNull(),
+    username: varchar('username').notNull(),
+    password: varchar('password').notNull(),
+    email: varchar('email').notNull(),
+});
+
+export const KomplotTable = pgTable("Komplots", {
+    id: serial('id').primaryKey().notNull(),
+    name: varchar('name').notNull(),
+    description: text('description').notNull(),
+    createdAt: timestamp("created_at").defaultNow(),
+    startDate: timestamp("start_date").defaultNow().notNull(),
+    endDate: timestamp("end_date"),
+    startTime: timestamp("start_time").notNull(),
+    endTime: timestamp("end_time"),
+    portId: integer('port_id').notNull().references(() => PortTable.id),
+    createdBy: integer('created_by').notNull().references(() => UsersTable.id),
+});
+
+export const KomplotAttendeesTable = pgTable("KomplotAttendees", {
+    id: serial('id').primaryKey().notNull(),
+    komplotId: integer('komplot_id').notNull().references(() => KomplotTable.id),
+    userId: integer('user_id').notNull().references(() => UsersTable.id),
+});
+
